@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Player from "./Player";
+import AddPlayerForm from "./AddPlayerForm";
 
 
 const App = () => {
@@ -34,11 +35,25 @@ const App = () => {
     setPlayers(players.filter( p => p.id !== id))
   }
 
+    const handleScoreChange = (id, delta) => {
+    setPlayers( prevPlayers => prevPlayers.map(player => {
+      if(player.id === id){
+      return { 
+        name: player.name,
+        score: player.score + delta,
+        id: player.id
+      }
+      }
+      return player
+    }))
+   }
+
+
     return (
       <div className="scoreboard">
         <Header
           title="Scoreboard"
-          totalPlayers={players.length}
+          players={players}
         />
 
         {/* Players list */}
@@ -49,8 +64,10 @@ const App = () => {
             id={player.id}
             key={player.id.toString()}
             removePlayer={handleRemovePlayer}
+            changeScore={handleScoreChange}
           />
         )}
+        <AddPlayerForm />
       </div>
     );
 
