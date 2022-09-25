@@ -30,6 +30,8 @@ const App = () => {
     ] 
       )
   
+      const [nextPlayerId, setNextPlayerId] = useState(5)
+
 
     const handleRemovePlayer = (id) => {
     setPlayers(players.filter( p => p.id !== id))
@@ -49,6 +51,18 @@ const App = () => {
    }
 
 
+   const handleAddPlayer = (name) => {
+    setPlayers(prevPlayers => [
+      ...prevPlayers, 
+      {
+        name,
+        score: 0,
+        id: nextPlayerId
+      }
+    ])
+    setNextPlayerId(prevId => prevId + 1)
+   }
+
     return (
       <div className="scoreboard">
         <Header
@@ -67,7 +81,7 @@ const App = () => {
             changeScore={handleScoreChange}
           />
         )}
-        <AddPlayerForm />
+        <AddPlayerForm addPlayer={handleAddPlayer}/>
       </div>
     );
 
