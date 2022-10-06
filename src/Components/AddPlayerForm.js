@@ -6,7 +6,7 @@ const [value, setValue] = useState('')
   const handleSubmit = (event) => {
     event.preventDefault()
     addPlayer(value)
-    
+    setValue()
   }
 
   return ( 
